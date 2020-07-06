@@ -1,9 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import Playground from './pages/playground/Playground';
+
 function App() {
-  return;
+  return (
+    <div>
+      <Playground />
+    </div>
+  );
 }
 
 export default App;
