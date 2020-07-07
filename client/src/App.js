@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import Playground from './pages/playground/Playground';
+import Playground from './pages/Playground/Playground';
 
 function App() {
   return (
