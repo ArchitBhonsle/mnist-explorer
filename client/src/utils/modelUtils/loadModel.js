@@ -1,8 +1,7 @@
 import { loadGraphModel } from '@tensorflow/tfjs';
-import { getModelPath } from './modelPathUtils';
 
-export const loadModel = (modelInfo) => {
-  const modelPath = getModelPath(modelInfo);
+export const loadModel = () => {
+  const modelPath = '/models/best/model.json';
   const modelPromise = loadGraphModel(modelPath);
 
   return modelPromise;

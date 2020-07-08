@@ -7,14 +7,16 @@ const Cell = ({ ind, val, setGrid, mouseClicked, cellSize }) => {
     <div
       className='cell'
       style={{
-        padding         : `${Math.floor(cellSize / 2)}px`,
+        height          : `${cellSize}px`,
+        width           : `${cellSize}px`,
         backgroundColor : `${val ? 'white' : 'black'}`
       }}
-      onMouseMove={() => {
+      onMouseOver={() => {
         if (mouseClicked)
           setGrid((grid) => {
-            grid[ind] = 1;
-            return grid;
+            const newGrid = grid;
+            newGrid[ind] = 1;
+            return newGrid;
           });
       }}
     />

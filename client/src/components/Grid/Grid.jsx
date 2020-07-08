@@ -1,30 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Cell from '../Cell/Cell';
 
 import './Grid.css';
 
-const Grid = ({ setInput, width }) => {
-  const [ grid, setGrid ] = useState(new Array(28 * 28).fill(0));
+const Grid = ({ grid, setGrid, limDim }) => {
   const [ mouseClicked, setMouseClicked ] = useState(false);
 
-  useEffect(
-    () => {
-      console.log(mouseClicked);
-    },
-    [ mouseClicked ]
-  );
+  const setMouseClickedTrue = () => setMouseClicked(true);
+  const setMouseClickedFalse = () => setMouseClicked(false);
 
-  const cellSize = Math.floor((width - 300) / 28);
+  const cellSize = 15;
 
   return (
     <div
       className='grid'
-      onMouseDown={() => {
-        setMouseClicked(true);
+      style={{
+        height : `${cellSize * 28}px`,
+        width  : `${cellSize * 28}px`
       }}
-      onMouseUp={() => {
-        setMouseClicked(false);
-      }}
+      onMouseDown={setMouseClickedTrue}
+      onMouseUp={setMouseClickedFalse}
+      onMouseLeave={setMouseClickedFalse}
     >
       {grid.map((val, ind) => (
         <Cell
@@ -34,10 +30,6 @@ const Grid = ({ setInput, width }) => {
           setGrid={setGrid}
           cellSize={cellSize}
           mouseClicked={mouseClicked}
-          onDoubleClick={() => {
-            console.log('doubleClick');
-            setGrid(new Array(28 * 28).fill(0));
-          }}
         />
       ))}
     </div>

@@ -1,0 +1,10 @@
+.prediction {
+  color: white;
+  font-weight: 700;
+  font-size: 40px;
+  margin: 20px 10px;
+}
+
+.prediction-blue {
+  color: #35b9da;
+}

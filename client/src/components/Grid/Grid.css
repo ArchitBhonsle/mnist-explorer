@@ -2,4 +2,5 @@
   border: 1px solid white;
   display: grid;
   grid-template-columns: repeat(28, auto);
+  box-sizing: initial;
 }

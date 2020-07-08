@@ -1,0 +1,36 @@
+.btn {
+  border-radius: 15px;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 20px 10px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn-dark {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+}
+
+.btn-dark:hover {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+}
+
+.btn-light {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+}
+
+.btn-light:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}

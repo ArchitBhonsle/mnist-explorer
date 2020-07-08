@@ -1,0 +1,66 @@
+.introduction {
+  padding: 10% 10% 0 0;
+}
+
+.whats-mnist {
+  font-size: 60px;
+  margin-bottom: 30px;
+}
+
+.description {
+  font-size: 20px;
+  margin-bottom: 50px;
+}
+
+.centered {
+  top: 50%;
+  left: 50%;
+  text-align: center;
+}
+
+.go-visualize {
+  border-radius: 4px;
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 50px;
+  color: #ffffff;
+  font-size: 25px;
+  padding: 20px;
+  width: 325px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.go-visualize span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.go-visualize span:after {
+  content: '\21D2';
+  color: black;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.go-visualize:hover {
+  background-color: #35b9da;
+  border: 1px solid #35b9da;
+}
+
+.go-visualize:hover span {
+  padding-right: 25px;
+  background-color: #35b9da;
+  color: black;
+}
+
+.go-visualize:hover span:after {
+  opacity: 1;
+  right: 0;
+}
