@@ -1,21 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 import './Navbar.css';
 
 const Navbar = () => {
   return (
-    <header class='navbar'>
-      <h2 class='logo'>MNIST Explorer</h2>
+    <header className='navbar'>
+      <motion.h2
+        className='logo'
+        drag
+        dragElastic={0.1}
+        dragConstraints={{
+          top    : 0,
+          left   : 0,
+          right  : 0,
+          bottom : 0
+        }}
+      >
+        MNIST Explorer
+      </motion.h2>
       <nav>
-        <ul class='nav-links'>
+        <ul className='nav-links'>
           <li>
-            <h3>Home</h3>
+            <Link to='/'>Home</Link>
           </li>
           <li>
-            <h3>Visualize</h3>
+            <Link to='/visualize'>Visualize</Link>
           </li>
           <li>
-            <h3>About</h3>
+            <Link to='/about'>About</Link>
           </li>
         </ul>
       </nav>

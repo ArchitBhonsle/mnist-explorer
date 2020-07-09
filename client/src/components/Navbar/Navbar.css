@@ -2,7 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 10%;
+  padding: 20px 10%;
+  margin-bottom: 20px;
 }
 
 .logo {
@@ -24,10 +25,13 @@
   cursor: pointer;
 }
 
-.nav-links li h3 {
+.nav-links li a {
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
   transition: all 0.3s ease 0s;
 }
 
-.nav-links li h3:hover {
+.nav-links li a:hover {
   color: #35b9da;
 }

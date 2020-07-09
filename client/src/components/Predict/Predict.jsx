@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Grid from '../Grid/Grid';
 import Button from '../Button/Button';
 
@@ -31,7 +32,14 @@ const Predict = () => {
   };
 
   return (
-    <div className='centered'>
+    <motion.div
+      className='centered'
+      initial={{ x: '50vw' }}
+      animate={{
+        x          : 0,
+        transition : { type: 'tween', duration: 1, ease: 'easeOut' }
+      }}
+    >
       <div
         className={`prediction ${prediction !== -1 ? 'prediction-blue' : ''}`}
       >
@@ -44,7 +52,7 @@ const Predict = () => {
           Clear
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
