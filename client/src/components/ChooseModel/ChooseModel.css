@@ -1,3 +1,7 @@
+.choose-model {
+  margin: 10px;
+}
+
 .graph-it {
   border-radius: 4px;
   background-color: black;
@@ -6,10 +10,10 @@
   color: #ffffff;
   font-size: 20px;
   padding: 20px;
-  width: 300px;
+  width: 200px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 5px 0 5px 300px;
+  margin: 5px 20px 5px 200px;
 }
 
 .graph-it span {

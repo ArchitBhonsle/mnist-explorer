@@ -7,6 +7,8 @@ const getCnnVariation = (
 const getDenseVariation = (unitsInDenseLayer, numberOfDenseLayers) =>
   `${unitsInDenseLayer}x${numberOfDenseLayers}`;
 
+const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
 export const getModelStatsPath = (modelInfo) => {
   const {
     modelType,
@@ -21,7 +23,19 @@ export const getModelStatsPath = (modelInfo) => {
     typeVariation = getDenseVariation(...typeVariationInfo);
   } else if (modelType === 'cnn') {
     typeVariation = getCnnVariation(...typeVariationInfo);
+  } else {
+    return [
+      `${capitalize(modelType)} ${capitalize(
+        optimizer
+      )} 0.${learningRate} ${epochs}`,
+      `/stats/dense/0x0/${optimizer}/${learningRate}/${epochs}`
+    ];
   }
 
-  return `/stats/${modelType}/${typeVariation}/${optimizer}/${learningRate}/${epochs}`;
+  return [
+    `${capitalize(modelType)} ${typeVariation} ${capitalize(
+      optimizer
+    )} 0.${learningRate} ${epochs}`,
+    `/stats/${modelType}/${typeVariation}/${optimizer}/${learningRate}/${epochs}`
+  ];
 };
