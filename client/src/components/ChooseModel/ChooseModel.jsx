@@ -59,7 +59,6 @@ const ChooseModel = ({ accuracyData, setAccuracyData }) => {
       );
       setAccuracyData((data) => {
         const present = data.findIndex((ele) => ele[0] === modelName);
-        console.log(present);
         if (present !== -1) {
           return [ ...data ];
         } else {
@@ -155,7 +154,11 @@ const ChooseModel = ({ accuracyData, setAccuracyData }) => {
       />
 
       <div>
-        <button className='graph-it' onClick={loadModelStats} onDoubleClick={() => setAccuracyData([])}>
+        <button
+          className='graph-it'
+          onClick={loadModelStats}
+          onDoubleClick={() => setAccuracyData([])}
+        >
           <span>Graph It!</span>
         </button>
       </div>

@@ -104,7 +104,6 @@ const Graph = ({ accuracyData }) => {
     labels   : labels,
     datasets : accuracyData.map((ad) => createDataset(ad))
   };
-  console.log(data);
   return (
     <motion.div
       initial={{ x: '100vw' }}
