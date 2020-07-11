@@ -34,7 +34,7 @@ const Predict = () => {
   return (
     <motion.div
       className='centered'
-      initial={{ x: '50vw' }}
+      initial={{ x: '100vw' }}
       animate={{
         x          : 0,
         transition : { type: 'tween', duration: 1, ease: 'easeOut' }
@@ -47,8 +47,21 @@ const Predict = () => {
       </div>
       <Grid grid={grid} setGrid={setGrid} />
       <div className='predict-buttons '>
-        <Button onClick={predict}>Predict</Button>
-        <Button onClick={clearGridAndPrediction} light>
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            predict();
+          }}
+        >
+          Predict
+        </Button>
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            clearGridAndPrediction();
+          }}
+          light
+        >
           Clear
         </Button>
       </div>

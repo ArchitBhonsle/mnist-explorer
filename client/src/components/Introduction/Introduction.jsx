@@ -8,7 +8,7 @@ const Introduction = () => {
   return (
     <motion.div
       className='introduction'
-      initial={{ x: '-50vw' }}
+      initial={{ x: '-100vw' }}
       animate={{
         x          : 0,
         transition : { type: 'tween', duration: 1, ease: 'easeOut' }

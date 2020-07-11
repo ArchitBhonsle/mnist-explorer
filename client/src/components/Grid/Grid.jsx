@@ -18,9 +18,18 @@ const Grid = ({ grid, setGrid, limDim }) => {
         height : `${cellSize * 28}px`,
         width  : `${cellSize * 28}px`
       }}
-      onMouseDown={setMouseClickedTrue}
-      onMouseUp={setMouseClickedFalse}
-      onMouseLeave={setMouseClickedFalse}
+      onMouseDown={(e) => {
+        e.preventDefault();
+        setMouseClickedTrue();
+      }}
+      onMouseUp={(e) => {
+        e.preventDefault();
+        setMouseClickedFalse();
+      }}
+      onMouseLeave={(e) => {
+        e.preventDefault();
+        setMouseClickedFalse();
+      }}
     >
       {grid.map((val, ind) => (
         <Cell
