@@ -8,3 +8,13 @@
 .prediction-blue {
   color: #35b9da;
 }
+
+.canvas {
+  border: 1px solid white;
+}
+
+#canvasImage {
+  display: none;
+  height: 392px;
+  width: 392px;
+}

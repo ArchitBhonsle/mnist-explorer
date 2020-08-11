@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import Grid from '../Grid/Grid';
 import Button from '../Button/Button';
+import { browser } from '@tensorflow/tfjs/';
 
+import { startPainting, stopPainting, sketch, erase } from './drawingControl';
 import { makePrediction } from '../../utils/modelUtils/makePrediction';
 import { loadModel } from '../../utils/modelUtils/loadModel';
 
 import './Predict.css';
 
+const getPixels = (image) => browser.fromPixels(image, 1);
+
+const predict = (setPrediction, model, pixels) => {
+  if (model !== undefined) {
+    setPrediction(makePrediction(model, pixels));
+  }
+};
+
 const Predict = () => {
   const [ model, setModel ] = useState();
   const [ prediction, setPrediction ] = useState(-1);
-
-  const [ grid, setGrid ] = useState(new Array(28 * 28).fill(0));
+  const imageRef = useRef();
+  const canvasRef = useRef();
 
   useEffect(() => {
     loadModel().then((model) => {
@@ -20,15 +29,9 @@ const Predict = () => {
     });
   }, []);
 
-  const predict = () => {
-    if (model !== undefined) {
-      setPrediction(makePrediction(model, grid));
-    }
-  };
-
   const clearGridAndPrediction = () => {
     setPrediction(-1);
-    setGrid(new Array(28 * 28).fill(0));
+    erase(canvasRef.current, imageRef.current);
   };
 
   return (
@@ -45,12 +48,23 @@ const Predict = () => {
       >
         {prediction === -1 ? 'Draw here' : `It's a ${prediction} !`}
       </div>
-      <Grid grid={grid} setGrid={setGrid} />
+      <div>
+        <canvas
+          ref={canvasRef}
+          className='canvas'
+          height='392'
+          width='392'
+          onMouseDown={(e) => startPainting(e)}
+          onMouseUp={(e) => stopPainting(e)}
+          onMouseMove={(e) => sketch(e, canvasRef.current, imageRef.current)}
+        />
+        <img ref={imageRef} id='canvasImage' alt='canvas data' />
+      </div>
       <div className='predict-buttons '>
         <Button
           onClick={(e) => {
             e.preventDefault();
-            predict();
+            predict(setPrediction, model, getPixels(imageRef.current));
           }}
         >
           Predict
