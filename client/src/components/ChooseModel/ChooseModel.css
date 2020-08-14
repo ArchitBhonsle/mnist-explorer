@@ -3,7 +3,6 @@
 }
 
 .graph-it {
-  border-radius: 4px;
   background-color: black;
   border: 1px solid white;
   border-radius: 50px;
@@ -13,7 +12,7 @@
   width: 200px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 5px 20px 5px 200px;
+  margin: 20px;
 }
 
 .graph-it span {
@@ -47,4 +46,29 @@
 .graph-it:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+.refresh-graph {
+  border-radius: 50px;
+  background-color: black;
+  border: 1px solid white;
+  color: #ffffff;
+  font-size: 20px;
+  transition: all 0.5s;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.refresh-graph span {
+  transition: all 0.5s;
+}
+
+.refresh-graph:hover {
+  background-color: #35b9da;
+  border: 1px solid #35b9da;
+}
+
+.refresh-graph:hover span {
+  background-color: #35b9da;
+  color: black;
 }

@@ -8,25 +8,31 @@ defaults.global.defaultFontSize = 15;
 defaults.global.defaultFontFamily = 'Montserrat';
 
 const colors = [
-  '#f44336',
-  '#E91E63',
-  '#9C27B0',
-  '#673AB7',
-  '#3F51B5',
+  '#ff1744',
+  '#3d5afe',
+  '#1de9b6',
+  '#ffea00',
+  '#f50057',
   '#2196F3',
-  '#03A9F4',
-  '#00BCD4',
-  '#009688',
-  '#4CAF50',
-  '#8BC34A',
-  '#CDDC39',
-  '#FFEB3B',
-  '#FFC107',
-  '#FF9800',
-  '#FF5722'
+  '#2979ff',
+  '#00e676',
+  '#ffc400',
+  '#d500f9',
+  '#00b0ff',
+  '#76ff03',
+  '#ff9100',
+  '#651fff',
+  '#00e5ff',
+  '#c6ff00',
+  '#ff3d00'
 ];
 
-const getColor = () => colors[Math.floor(Math.random() * 16)];
+let ind = 0;
+
+const getColor = () => {
+  ind = (ind + 1) % 16;
+  return colors[ind];
+};
 
 const labels = [
   1,
@@ -100,6 +106,7 @@ const createDataset = ([ modelName, accuracy ]) => {
 };
 
 const Graph = ({ accuracyData }) => {
+  ind = 0;
   const data = {
     labels   : labels,
     datasets : accuracyData.map((ad) => createDataset(ad))

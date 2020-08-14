@@ -7,27 +7,33 @@ import { getModelStatsPath } from '../../utils/modelUtils/getModelStatsPath';
 import { getModelAccuracy } from '../../utils/modelUtils/getModelAccuracy';
 
 const defaultModel = {
-  modelType              : 'dense',
-  filtersInFirstLayer    : '128',
-  numberOfCnns           : '3',
-  unitsInDenseLayerCnn   : '128',
-  unitsInDenseLayerDense : '16',
-  numberOfDenseLayers    : '1',
-  optimizer              : 'adam',
-  learningRate           : '001',
-  epochs                 : '10'
+  modelType             : 'logistic',
+  optimizer             : 'adam',
+  learningRate          : '01',
+  epochs                : '10',
+  l_optimizer           : 'adam',
+  l_learningRate        : '1',
+  l_epochs              : '5',
+  c_filtersInFirstLayer : '16',
+  c_numberOfLayers      : '1',
+  c_unitsInDenseLayer   : '16',
+  d_unitsInDenseLayer   : '16',
+  d_numberOfLayers      : '1'
 };
 
 const choices = {
-  modelTypes              : [ 'logistic', 'dense', 'cnn' ],
-  filtersInFirstLayers    : [ '16', '32', '64', '128' ],
-  numberOfCnnss           : [ '1', '3' ],
-  unitsInDenseLayerCnns   : [ '64', '128', '256' ],
-  unitsInDenseLayerDenses : [ '16', '32', '64', '128', '256' ],
-  numberOfDenseLayerss    : [ '1', '2', '4' ],
-  optimizers              : [ 'adam', 'rmsprop', 'sgd' ],
-  learningRates           : [ '1', '01', '001' ],
-  epochss                 : [ '5', '10', '20' ]
+  modelType             : [ 'logistic', 'dense', 'cnn' ],
+  optimizer             : [ 'adam', 'rmsprop' ],
+  learningRate          : [ '01', '001' ],
+  epochs                : [ '10', '20' ],
+  l_optimizer           : [ 'adam', 'rmsprop', 'sgd' ],
+  l_learningRate        : [ '1', '01', '001' ],
+  l_epochs              : [ '5', '10', '20' ],
+  c_filtersInFirstLayer : [ '16', '64', '256' ],
+  c_numberOfLayers      : [ '1', '3' ],
+  c_unitsInDenseLayer   : [ '16', '64', '256' ],
+  d_unitsInDenseLayer   : [ '16', '64', '256' ],
+  d_numberOfLayers      : [ '1', '2', '4' ]
 };
 
 const ChooseModel = ({ accuracyData, setAccuracyData }) => {
@@ -42,17 +48,23 @@ const ChooseModel = ({ accuracyData, setAccuracyData }) => {
       modelType         : model.modelType,
       typeVariationInfo :
         model.modelType === 'dense'
-          ? [ model.unitsInDenseLayerDense, model.numberOfDenseLayers ]
+          ? [ model.d_unitsInDenseLayer, model.d_numberOfLayers ]
           : [
-              model.filtersInFirstLayer,
-              model.numberOfCnns,
-              model.unitsInDenseLayerCnn
+              model.c_filtersInFirstLayer,
+              model.c_numberOfLayers,
+              model.c_unitsInDenseLayer
             ],
-      optimizer         : model.optimizer,
-      learningRate      : model.learningRate,
-      epochs            : model.epochs
+      optimizer         :
+        model.modelType === 'logistic' ? model.l_optimizer : model.optimizer,
+      learningRate      :
+        model.modelType === 'logistic'
+          ? model.l_learningRate
+          : model.learningRate,
+      epochs            :
+        model.modelType === 'logistic' ? model.l_epochs : model.epochs
     };
     const [ modelName, modelUrl ] = getModelStatsPath(correctedModel);
+
     try {
       const accuracy = (await getModelAccuracy(modelUrl)).map(
         (acc) => acc.toPrecision(5) * 100
@@ -83,30 +95,79 @@ const ChooseModel = ({ accuracyData, setAccuracyData }) => {
       <Choice
         displayName='Model Type'
         name='modelType'
-        choices={choices['modelTypes']}
+        choices={choices.modelType}
         changeModel={changeModel}
         model={model}
       />
+      {model.modelType === 'logistic' ? (
+        <React.Fragment>
+          <Choice
+            displayName='Optimizer'
+            name='l_optimizer'
+            choices={choices.l_optimizer}
+            changeModel={changeModel}
+            model={model}
+          />
+          <Choice
+            displayName='Learning Rate'
+            name='l_learningRate'
+            choices={choices.l_learningRate}
+            changeModel={changeModel}
+            model={model}
+          />
+          <Choice
+            displayName='Epochs'
+            name='l_epochs'
+            choices={choices.l_epochs}
+            changeModel={changeModel}
+            model={model}
+          />
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Choice
+            displayName='Optimizer'
+            name='optimizer'
+            choices={choices.optimizer}
+            changeModel={changeModel}
+            model={model}
+          />
+          <Choice
+            displayName='Learning Rate'
+            name='learningRate'
+            choices={choices.learningRate}
+            changeModel={changeModel}
+            model={model}
+          />
+          <Choice
+            displayName='Epochs'
+            name='epochs'
+            choices={choices.epochs}
+            changeModel={changeModel}
+            model={model}
+          />
+        </React.Fragment>
+      )}
       {model.modelType === 'cnn' ? (
         <React.Fragment>
           <Choice
-            displayName='Filters in first layer'
-            name='filtersInFirstLayer'
-            choices={choices['filtersInFirstLayers']}
+            displayName='Filters in first CNN layer'
+            name='c_filtersInFirstLayer'
+            choices={choices.c_filtersInFirstLayer}
             changeModel={changeModel}
             model={model}
           />
           <Choice
             displayName='Number of CNN layers'
-            name='numberOfCnns'
-            choices={choices['numberOfCnnss']}
+            name='c_numberOfLayers'
+            choices={choices.c_numberOfLayers}
             changeModel={changeModel}
             model={model}
           />
           <Choice
             displayName='Units in the dense layer'
-            name='unitsInDenseLayerCnn'
-            choices={choices['unitsInDenseLayerCnns']}
+            name='c_unitsInDenseLayer'
+            choices={choices.c_unitsInDenseLayer}
             changeModel={changeModel}
             model={model}
           />
@@ -115,15 +176,15 @@ const ChooseModel = ({ accuracyData, setAccuracyData }) => {
         <React.Fragment>
           <Choice
             displayName='Units in dense layer'
-            name='unitsInDenseLayerDense'
-            choices={choices['unitsInDenseLayerDenses']}
+            name='d_unitsInDenseLayer'
+            choices={choices.d_unitsInDenseLayer}
             changeModel={changeModel}
             model={model}
           />
           <Choice
             displayName='Number of dense layers'
-            name='numberOfDenseLayers'
-            choices={choices['numberOfDenseLayerss']}
+            name='d_numberOfLayers'
+            choices={choices.d_numberOfLayers}
             changeModel={changeModel}
             model={model}
           />
@@ -131,34 +192,12 @@ const ChooseModel = ({ accuracyData, setAccuracyData }) => {
       ) : (
         <React.Fragment />
       )}
-      <Choice
-        displayName='Optimizer'
-        name='optimizer'
-        choices={choices['optimizers']}
-        changeModel={changeModel}
-        model={model}
-      />
-      <Choice
-        displayName='Learning Rate'
-        name='learningRate'
-        choices={choices['learningRates']}
-        changeModel={changeModel}
-        model={model}
-      />
-      <Choice
-        displayName='Epochs'
-        name='epochs'
-        choices={choices['epochss']}
-        changeModel={changeModel}
-        model={model}
-      />
 
       <div>
-        <button
-          className='graph-it'
-          onClick={loadModelStats}
-          onDoubleClick={() => setAccuracyData([])}
-        >
+        <button className='refresh-graph' onClick={() => setAccuracyData([])}>
+          <span>↺</span>
+        </button>
+        <button className='graph-it' onClick={loadModelStats}>
           <span>Graph It!</span>
         </button>
       </div>

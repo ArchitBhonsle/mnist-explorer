@@ -5,6 +5,7 @@
   background-color: black;
   font-family: 'Montserrat', sans-serif;
   color: white;
+  outline: none;
 }
 
 *::-webkit-scrollbar {
