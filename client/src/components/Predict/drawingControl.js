@@ -22,7 +22,7 @@ export function sketch(event, canvas, img) {
   const ctx = canvas.getContext('2d');
 
   ctx.beginPath();
-  ctx.lineWidth = 20;
+  ctx.lineWidth = 40;
   ctx.lineCap = 'round';
   ctx.strokeStyle = 'white';
   ctx.moveTo(coord.x, coord.y);
